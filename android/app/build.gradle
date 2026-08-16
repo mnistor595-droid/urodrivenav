@@ -1,36 +1,40 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-plugin-loader"
+}
 
 android {
-    compileSdkVersion 33
+    namespace "com.example.urodrivenav"
+    compileSdkVersion flutter.compileSdkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.7'
+    }
 
     defaultConfig {
         applicationId "com.example.urodrivenav"
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 33
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutter.versionCode.toInteger()
+        versionName flutter.versionName
     }
 
     buildTypes {
         release {
             signingConfig signingConfigs.debug
-            minifyEnabled false
         }
     }
 }
 
+flutter {
+    source '../..'
+}
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
-}
-
-def localPropertiesFile = rootProject.file('local.properties')
-def properties = new Properties()
-if (localPropertiesFile.exists()) {
-    properties.load(new FileInputStream(localPropertiesFile))
-}
-
-def flutterRoot = properties.getProperty('flutter.sdk')
-if (flutterRoot != null) {
-    apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 }
