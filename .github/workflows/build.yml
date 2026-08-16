@@ -24,9 +24,6 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Clean Project
-        run: flutter clean
-
       - name: Install Dependencies
         run: flutter pub get
 
@@ -34,7 +31,7 @@ jobs:
         run: yes | flutter doctor --android-licenses
 
       - name: Build APK (Debug)
-        run: flutter build apk --debug -v
+        run: flutter build apk --debug --verbose
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
