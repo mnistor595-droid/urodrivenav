@@ -24,19 +24,20 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Generate Android Files and Wrapper
+        run: flutter create . --platforms=android
+
       - name: Install Dependencies
         run: flutter pub get
 
       - name: Accept Android Licenses
         run: yes | flutter doctor --android-licenses
 
-      - name: Build with Gradle Directly
-        run: |
-          cd android
-          ./gradlew assembleDebug --stacktrace
+      - name: Build APK (Debug)
+        run: flutter build apk --debug -v
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
