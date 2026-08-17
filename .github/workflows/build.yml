@@ -30,13 +30,13 @@ jobs:
       - name: Accept Android Licenses
         run: yes | flutter doctor --android-licenses
 
-      - name: Build APK & Dump Last 150 Lines
+      - name: Build APK & Show Error Context
         run: |
           flutter build apk --debug --verbose > build.log 2>&1 || {
             sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" build.log > clean_build.log
-            echo "================ FULL BUILD ERROR LOG (LAST 150 LINES) ================"
-            tail -n 150 clean_build.log
-            echo "======================================================================="
+            echo "================ REAL ERROR CONTEXT ================"
+            head -n -15 clean_build.log | tail -n 120
+            echo "===================================================="
             exit 1
           }
 
