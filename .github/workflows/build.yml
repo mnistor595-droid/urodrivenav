@@ -27,9 +27,6 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Run Build Runner (Code Generation)
-        run: dart run build_runner build --delete-conflicting-outputs
-
       - name: Accept Android Licenses
         run: yes | flutter doctor --android-licenses
 
