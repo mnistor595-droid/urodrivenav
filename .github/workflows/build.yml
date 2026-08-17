@@ -30,14 +30,14 @@ jobs:
       - name: Accept Android Licenses
         run: yes | flutter doctor --android-licenses
 
-      - name: Build APK & Show Log Tail
+      - name: Build APK & Extract Gradle Error
         run: |
-          flutter build apk --debug --verbose > build.log 2>&1 || (
-            echo "================ LAST 80 LINES OF BUILD LOG ================"
-            tail -n 80 build.log
-            echo "=========================================================="
+          flutter build apk --debug --verbose > build.log 2>&1 || {
+            echo "================ GRADLE ERROR SUMMARY ================"
+            grep -A 20 "What went wrong" build.log || tail -n 100 build.log
+            echo "======================================================"
             exit 1
-          )
+          }
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
