@@ -32,8 +32,15 @@ jobs:
       - name: Accept Android Licenses
         run: yes | flutter doctor --android-licenses
 
-      - name: Build APK (Debug)
-        run: flutter build apk --debug --verbose
+      - name: Build APK & Extract Exact Error
+        run: |
+          flutter build apk --debug --verbose > build.log 2>&1 || {
+            echo "=================== EROAREA EXACTĂ ==================="
+            grep -i -C 5 "error" build.log || true
+            grep -i -C 5 "failure" build.log || true
+            echo "======================================================"
+            exit 1
+          }
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
