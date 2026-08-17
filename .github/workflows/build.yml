@@ -30,12 +30,13 @@ jobs:
       - name: Accept Android Licenses
         run: yes | flutter doctor --android-licenses
 
-      - name: Build APK & Extract Gradle Error
+      - name: Build APK & Extract Clean Error
         run: |
           flutter build apk --debug --verbose > build.log 2>&1 || {
-            echo "================ GRADLE ERROR SUMMARY ================"
-            grep -A 20 "What went wrong" build.log || tail -n 100 build.log
-            echo "======================================================"
+            echo "================ CLEANED BUILD ERROR LOG ================"
+            sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" build.log > clean_build.log
+            grep -A 20 "Execution failed for task" clean_build.log || tail -n 120 clean_build.log
+            echo "=========================================================="
             exit 1
           }
 
