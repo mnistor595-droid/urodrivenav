@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() => runApp(const EuroDriveApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const EuroDriveApp());
+}
 
 class EuroDriveApp extends StatelessWidget {
   const EuroDriveApp({super.key});
@@ -21,7 +24,7 @@ class EuroDriveApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('ro', 'RO'),
         Locale('en', 'US'),
         Locale('ru', 'RU'),
