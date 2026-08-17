@@ -30,8 +30,14 @@ jobs:
       - name: Accept Android Licenses
         run: yes | flutter doctor --android-licenses
 
-      - name: Build APK (Verbose Mode)
-        run: flutter build apk --debug --verbose
+      - name: Build APK & Filter Exact Error
+        run: |
+          flutter build apk --debug --verbose > build.log 2>&1 || (
+            echo "================ ERROR DETAILS ================"
+            grep -E -i -C 3 "error|failure|exception|failed|e:" build.log | tail -n 40
+            echo "==============================================="
+            exit 1
+          )
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
