@@ -24,13 +24,16 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Generate Android Files & Wrapper
+        run: flutter create . --platforms=android
+
       - name: Install Dependencies
         run: flutter pub get
 
       - name: Accept Android Licenses
         run: yes | flutter doctor --android-licenses
 
-      - name: Build Directly with Gradle (Stacktrace)
+      - name: Build with Gradle and Stacktrace
         run: |
           cd android
           ./gradlew assembleDebug --stacktrace
