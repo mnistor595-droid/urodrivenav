@@ -1,9 +1,30 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const EuroDriveApp());
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    runApp(const EuroDriveApp());
+  }, (error, stackTrace) {
+    runApp(MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.red[900],
+        body: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Text(
+                'Eroare la pornire:\n$error',
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+  });
 }
 
 class EuroDriveApp extends StatelessWidget {
