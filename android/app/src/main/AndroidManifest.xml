@@ -1,6 +1,3 @@
-(cd /storage/internal_new/project/eurodrivenav
-
-cat << 'EOF' > android/app/src/main/AndroidManifest.xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -11,7 +8,6 @@ cat << 'EOF' > android/app/src/main/AndroidManifest.xml
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         
-        <!-- Această linie rezolvă eroarea de v1 embedding -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
@@ -31,4 +27,3 @@ cat << 'EOF' > android/app/src/main/AndroidManifest.xml
         </activity>
     </application>
 </manifest>
-EOF
