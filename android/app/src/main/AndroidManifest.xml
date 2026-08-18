@@ -1,3 +1,6 @@
+(cd /storage/internal_new/project/eurodrivenav
+
+cat << 'EOF' > android/app/src/main/AndroidManifest.xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -28,3 +31,4 @@
         </activity>
     </application>
 </manifest>
+EOF
